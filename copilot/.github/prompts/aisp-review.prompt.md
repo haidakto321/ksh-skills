@@ -1,5 +1,6 @@
 ---
 agent: 'agent'
+model: ["Claude Opus 4.8","Claude Sonnet 4.6","GPT-4.1"]
 description: "Review the diff for bugs and quality with severity-tagged findings. Use when gating a change before merge."
 ---
 

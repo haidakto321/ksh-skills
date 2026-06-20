@@ -1,5 +1,6 @@
 ---
 agent: 'agent'
+model: ["Claude Sonnet 4.6","GPT-4.1"]
 description: "Run unit tests with a bounded auto-fix loop and write evidence. Use when verifying behavior after a code change."
 ---
 

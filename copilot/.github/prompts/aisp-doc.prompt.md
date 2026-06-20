@@ -1,5 +1,6 @@
 ---
 agent: 'agent'
+model: ["Claude Haiku 4.5","GPT-5 mini","GPT-4.1"]
 description: "Record decisions, tradeoffs and implementation notes after work is done. Use when capturing the why at the end of a task."
 ---
 

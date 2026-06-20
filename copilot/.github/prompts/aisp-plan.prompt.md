@@ -1,5 +1,6 @@
 ---
 agent: 'agent'
+model: ["Claude Sonnet 4.6","GPT-4.1"]
 description: "Turn an approved spec into a step-by-step build plan. Use when a spec exists and the work needs sequencing before coding."
 ---
 

@@ -1,5 +1,6 @@
 ---
 agent: 'agent'
+model: ["Claude Haiku 4.5","GPT-5 mini","GPT-4.1"]
 description: "Capture WHAT to build as a short written spec before coding. Use when starting a task whose requirements are not yet written down."
 ---
 

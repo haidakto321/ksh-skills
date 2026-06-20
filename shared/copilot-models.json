@@ -1,0 +1,11 @@
+{
+  "_comment": "Copilot model routing config. EDIT these to match exactly what your Copilot model picker shows (availability depends on your plan/org). The Claude side routes dynamically and ignores this file.",
+  "_fallback_help": "Each weight is a PRIORITIZED LIST: Copilot tries each model in order until one is available, so a model your plan lacks (e.g. Claude Opus 4.8) is skipped for the next. IMPORTANT: make the LAST entry in each list a model you are certain you have, so routing always resolves. A single string also works but is unpredictable if that one model is unavailable.",
+  "pin": true,
+  "_pin_help": "pin=true: each aisp-*.prompt.md hard-sets its tier model list (auto routing). pin=false: prompts omit model, so whatever model you pick in Copilot Chat runs. Custom agents always carry their tier model list for handoffs either way.",
+  "weights": {
+    "light": ["Claude Haiku 4.5", "GPT-5 mini", "GPT-4.1"],
+    "normal": ["Claude Sonnet 4.6", "GPT-4.1"],
+    "heavy": ["Claude Opus 4.8", "Claude Sonnet 4.6", "GPT-4.1"]
+  }
+}

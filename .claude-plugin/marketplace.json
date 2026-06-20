@@ -1,0 +1,14 @@
+{
+  "name": "ksh-skills",
+  "owner": {
+    "name": "haiks"
+  },
+  "description": "aisp SDLC skill set marketplace",
+  "plugins": [
+    {
+      "name": "ksh-skills",
+      "source": "./",
+      "description": "aisp SDLC skill set: spec, plan, code, test, review, doc, fix with human gates"
+    }
+  ]
+}

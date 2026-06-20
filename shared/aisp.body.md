@@ -28,11 +28,17 @@ the user said bypass.
 If /aisp-test exhausts its 2 fix attempts, STOP and route to /aisp-fix; do not
 continue to review with failing tests.
 
-### Model routing (Claude Code only)
-If running in Claude Code, dispatch heavy steps to a subagent with a model by
-weight: light (spec scaffold, simple test) -> haiku; normal (code, test) ->
-sonnet; heavy (review, hard fix) -> opus. Print an announce line
-`Agent <name> (<model>): <task>` per spawn. If not Claude Code, run inline.
+### Model routing by task weight
+Each skill has a weight: light (spec, doc), normal (plan, code, test), heavy
+(review, fix).
+- In Claude Code: dispatch heavy steps to a subagent with a model by weight -
+  light -> haiku, normal -> sonnet, heavy -> opus. Print an announce line
+  `Agent <name> (<model>): <task>` per spawn. If running inline, skip routing.
+- In GitHub Copilot: each atomic skill prompt already pins its tier model
+  (`model:` in its .prompt.md). For the full flow, hand off heavy steps to the
+  `aisp-heavy` custom agent and light steps to `aisp-light` (each agent pins its
+  model in copilot/.github/agents/). Tier models are configured in
+  shared/copilot-models.json.
 
 ## Anti-rationalization
 

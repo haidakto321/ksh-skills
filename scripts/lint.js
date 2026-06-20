@@ -3,9 +3,19 @@ const path = require('path');
 
 const REQUIRED_SECTIONS = ['Overview', 'When to Use', 'Process', 'Anti-rationalization', 'Red Flags', 'Verification'];
 const fm = require('../shared/frontmatter.json');
+const cfg = require('../shared/copilot-models.json');
 const sharedDir = path.join(__dirname, '..', 'shared');
 
+const VALID_WEIGHTS = ['light', 'normal', 'heavy'];
 let errors = [];
+
+// copilot-models.json must define a model (string or non-empty array) for every tier
+const tierModels = cfg.weights || {};
+for (const w of VALID_WEIGHTS) {
+  const m = tierModels[w];
+  const ok = typeof m === 'string' ? m.length > 0 : Array.isArray(m) && m.length > 0;
+  if (!ok) errors.push(`copilot-models.json: weights.${w} must be a non-empty model name or list`);
+}
 
 for (const skill of Object.keys(fm)) {
   const bodyPath = path.join(sharedDir, `${skill}.body.md`);
@@ -30,6 +40,7 @@ for (const skill of Object.keys(fm)) {
   const meta = fm[skill];
   if (!meta.name || !meta.description) errors.push(`${skill}: frontmatter missing name/description`);
   if (!/Use when /.test(meta.description)) errors.push(`${skill}: description must contain "Use when "`);
+  if (!VALID_WEIGHTS.includes(meta.weight)) errors.push(`${skill}: weight must be one of ${VALID_WEIGHTS.join('/')}, got "${meta.weight}"`);
   const EM_DASH = String.fromCharCode(0x2014); // build the char without a literal em-dash in source
   if (body.includes(EM_DASH)) errors.push(`${skill}: contains em-dash, use hyphen`);
 }

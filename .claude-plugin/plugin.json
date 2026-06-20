@@ -2,6 +2,7 @@
   "name": "ksh-skills",
   "version": "0.1.0",
   "description": "aisp SDLC skill set: spec, plan, code, test, review, doc, fix with human gates and evidence",
-  "author": "haiks",
-  "minClaudeVersion": "1.0"
+  "author": {
+    "name": "haiks"
+  }
 }

@@ -1,5 +1,6 @@
 ---
 agent: 'agent'
+model: ["Claude Sonnet 4.6","GPT-4.1"]
 description: "Implement code per an approved plan, surgically and following existing patterns. Use when a plan is approved and code must be written."
 ---
 

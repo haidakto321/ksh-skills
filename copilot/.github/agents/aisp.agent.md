@@ -1,7 +1,32 @@
 ---
-agent: 'agent'
+name: aisp
+description: "aisp SDLC orchestrator - gated spec to doc flow; each handoff advances one step on its tier model."
 model: ["Claude Sonnet 4.6","GPT-4.1"]
-description: "Orchestrate the full SDLC flow (spec, plan, code, test, review, doc) with human gates. Use when a developer wants guided end-to-end delivery of a task or feature."
+handoffs:
+  - label: "Spec"
+    agent: aisp-light
+    prompt: "Run the aisp-spec step now. Follow its process and gates exactly."
+    send: false
+  - label: "Plan"
+    agent: aisp-normal
+    prompt: "Run the aisp-plan step now. Follow its process and gates exactly."
+    send: false
+  - label: "Code"
+    agent: aisp-normal
+    prompt: "Run the aisp-code step now. Follow its process and gates exactly."
+    send: false
+  - label: "Test"
+    agent: aisp-normal
+    prompt: "Run the aisp-test step now. Follow its process and gates exactly."
+    send: false
+  - label: "Review"
+    agent: aisp-heavy
+    prompt: "Run the aisp-review step now. Follow its process and gates exactly."
+    send: false
+  - label: "Doc"
+    agent: aisp-light
+    prompt: "Run the aisp-doc step now. Follow its process and gates exactly."
+    send: false
 ---
 
 ## Overview
