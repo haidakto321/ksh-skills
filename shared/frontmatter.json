@@ -1,6 +1,6 @@
 {
   "aisp": { "name": "aisp", "weight": "normal", "description": "Orchestrate the full SDLC flow (spec, plan, code, test, review, doc) with human gates. Use when a developer wants guided end-to-end delivery of a task or feature." },
-  "aisp-spec": { "name": "aisp-spec", "weight": "light", "description": "Capture WHAT to build as a short written spec before coding. Use when starting a task whose requirements are not yet written down." },
+  "aisp-spec": { "name": "aisp-spec", "weight": "heavy", "description": "Capture WHAT to build as a short written spec before coding. Use when starting a task whose requirements are not yet written down." },
   "aisp-plan": { "name": "aisp-plan", "weight": "normal", "description": "Turn an approved spec into a step-by-step build plan. Use when a spec exists and the work needs sequencing before coding." },
   "aisp-code": { "name": "aisp-code", "weight": "normal", "description": "Implement code per an approved plan, surgically and following existing patterns. Use when a plan is approved and code must be written." },
   "aisp-test": { "name": "aisp-test", "weight": "normal", "description": "Run unit tests with a bounded auto-fix loop and write evidence. Use when verifying behavior after a code change." },

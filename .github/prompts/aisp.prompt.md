@@ -1,6 +1,6 @@
 ---
 agent: 'agent'
-model: ["Claude Sonnet 4.6","GPT-5.5","Gemini 3.1 Pro (Preview)"]
+model: ["Claude Sonnet 4.6","GPT-4.1"]
 description: "Orchestrate the full SDLC flow (spec, plan, code, test, review, doc) with human gates. Use when a developer wants guided end-to-end delivery of a task or feature."
 ---
 

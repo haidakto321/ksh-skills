@@ -1,10 +1,10 @@
 ---
 name: aisp
 description: "aisp SDLC orchestrator - gated spec to doc flow; each handoff advances one step on its tier model."
-model: ["Claude Sonnet 4.6","GPT-4.1"]
+model: ["Claude Sonnet 4.6","GPT-5.5","Gemini 3.1 Pro (Preview)"]
 handoffs:
   - label: "Spec"
-    agent: aisp-light
+    agent: aisp-heavy
     prompt: "Run the aisp-spec step now. Follow its process and gates exactly."
     send: false
   - label: "Plan"

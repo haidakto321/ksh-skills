@@ -51,14 +51,14 @@ for (const weight of Object.keys(tierModels)) {
 // Copilot orchestrator agent with gated handoffs. Each handoff is a button the
 // human clicks to advance one step (= the human gate; send:false never
 // auto-submits), and each runs on the target tier's model via a tier agent.
-const FLOW = [
-  ['aisp-spec', 'light'], ['aisp-plan', 'normal'], ['aisp-code', 'normal'],
-  ['aisp-test', 'normal'], ['aisp-review', 'heavy'], ['aisp-doc', 'light'],
-];
+// Ordered flow steps; each step's tier comes from frontmatter.json (single
+// source of truth), so changing a skill's weight there updates its handoff too.
+const FLOW = ['aisp-spec', 'aisp-plan', 'aisp-code', 'aisp-test', 'aisp-review', 'aisp-doc'];
 // No per-handoff model: each handoff targets its tier agent, whose own `model`
 // (a fallback list) decides the model. This avoids assuming the handoff model
 // field accepts an array, and the tier agent already carries the fallback chain.
-const handoffs = FLOW.map(([step, weight]) => {
+const handoffs = FLOW.map((step) => {
+  const weight = fm[step].weight;
   const label = step.replace('aisp-', '');
   return [
     `  - label: ${JSON.stringify(label[0].toUpperCase() + label.slice(1))}`,

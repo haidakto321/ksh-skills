@@ -1,5 +1,6 @@
 ---
-name: aisp-review
+agent: 'agent'
+model: ["Claude Opus 4.8","Claude Sonnet 4.6","GPT-4.1"]
 description: "Review the diff for bugs and quality with severity-tagged findings. Use when gating a change before merge."
 ---
 
@@ -13,19 +14,14 @@ Use when gating a change before merge with structured findings.
 
 ## Process
 
-1. Look for a project review checklist before reviewing. Check, in order:
-   `.github/instructions/*.instructions.md` (Copilot auto-applies these by
-   `applyTo` glob), then `docs/review-checklist*.md` or a `REVIEW_CHECKLIST.md`
-   at the repo root. If one matches the languages in the diff, apply its items
-   as additional review criteria and note which checklist was used.
-2. Review the diff for correctness bugs, security issues, and quality problems.
+1. Review the diff for correctness bugs, security issues, and quality problems.
    Each finding: location + severity (HIGH / MED / LOW) + concrete fix.
-3. Mode:
+2. Mode:
    - full review (default / from /aisp full): ask "Export review report to
      file?"; if yes write reports/review-<slug>-<date>.md.
    - light review (from short / quick flow): fast pass, findings inline, no
      report file. Still produce findings.
-4. GATE (mandatory): present findings, let the human decide fix-vs-merge.
+3. GATE (mandatory): present findings, let the human decide fix-vs-merge.
    Never auto-merge.
 
 ## Anti-rationalization

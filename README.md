@@ -87,9 +87,9 @@ your org does not have (e.g. `Claude Opus 4.8`) is skipped for the next:
 
 ```json
 "weights": {
-  "light":  ["GPT-5 mini", "GPT-4.1"],
-  "normal": ["Claude Sonnet 4.6", "GPT-4.1"],
-  "heavy":  ["Claude Opus 4.8", "Claude Sonnet 4.6", "GPT-4.1"]
+  "light":  ["Claude Haiku 4.5", "Gemini 3.5 Flash", "GPT-5.4 mini"],
+  "normal": ["Claude Sonnet 4.6", "GPT-5.5", "Gemini 3.1 Pro (Preview)"],
+  "heavy":  ["Claude Opus 4.6", "Claude Sonnet 4.6", "GPT-5.5", "Gemini 3.1 Pro (Preview)"]
 }
 ```
 
