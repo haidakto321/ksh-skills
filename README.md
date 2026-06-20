@@ -69,9 +69,11 @@ Each skill has a `weight` (light / normal / heavy) in `shared/frontmatter.json`.
   per-step.
 - **GitHub Copilot:** weights map to Copilot models in
   `shared/copilot-models.json`. Three pieces:
-  1. Every `aisp-*.prompt.md` pins its tier `model:`, so calling a skill directly
-     (e.g. `/aisp-spec`) runs on its tier model - a simple step uses a lighter
-     model automatically.
+  1. When `pin: true`, every `aisp-*.prompt.md` pins its tier `model:`, so calling
+     a skill directly (e.g. `/aisp-spec`) runs on its tier model - a simple step
+     uses a lighter model automatically. When `pin: false` (current default),
+     prompts omit `model:` and whichever model you select in the Copilot picker
+     runs. See "Choosing the model yourself" below.
   2. Tier agents `copilot/.github/agents/aisp-{light,normal,heavy}.agent.md` each
      pin a model and are handoff targets.
   3. Orchestrator agent `copilot/.github/agents/aisp.agent.md` drives the full
@@ -100,9 +102,9 @@ your org does not have (e.g. `Claude Opus 4.8`) is skipped for the next:
 ### Choosing the model yourself
 
 `shared/copilot-models.json` has a `pin` flag:
-- `pin: true` (default) - prompts hard-set the tier model list (auto routing).
-- `pin: false` - prompts omit `model:`, so whichever model you select in the
-  Copilot model picker runs. Use this if you want to choose per call.
+- `pin: true` - prompts hard-set the tier model list (auto routing).
+- `pin: false` (current default) - prompts omit `model:`, so whichever model you
+  select in the Copilot model picker runs. Use this if you want to choose per call.
 
 Either way the tier/orchestrator agents keep their model lists (handoffs land on
 the tier agent, which carries the fallback). After changing the config, run

@@ -1,6 +1,5 @@
 ---
 agent: 'agent'
-model: ["Claude Opus 4.6","Claude Sonnet 4.6","GPT-5.5","Gemini 3.1 Pro (Preview)"]
 description: "Capture WHAT to build as a short written spec before coding. Use when starting a task whose requirements are not yet written down."
 ---
 

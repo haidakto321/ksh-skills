@@ -16,6 +16,9 @@ Use this when a spec exists and the work needs sequencing before any coding star
 1. Read the approved spec. If none exists, stop and tell the user to run /aisp-spec.
 2. Break the work into bite-sized, independently testable tasks (file paths, exact changes, how to test each).
 3. Ask "Export plan to file?" If yes, write docs/plans/<slug>-<date>.md.
+   Include a "Decisions & Approvals" section: each question asked at this step,
+   the options offered, the option the human chose, and the final approval
+   reply - as a history reference for why the plan looks the way it does.
 4. GATE (mandatory): print the task list, wait for explicit approval before coding.
 
 ## Anti-rationalization
