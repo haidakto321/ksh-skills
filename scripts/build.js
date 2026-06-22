@@ -43,9 +43,9 @@ for (const skill of Object.keys(fm)) {
 // Copilot custom agents - one per weight tier. Each pins its tier model and is a
 // handoff target for the orchestrator (so a simple step runs on a lighter model).
 for (const weight of Object.keys(tierModels)) {
-  const desc = JSON.stringify(`aisp ${weight}-tier agent - runs ${weight} steps on the ${weight} model.`);
-  const agent = `---\nname: aisp-${weight}\ndescription: ${desc}\nmodel: ${JSON.stringify(tierModels[weight])}\n---\n\nRun the requested aisp step on the ${weight} tier. Follow the invoking skill's process and gates exactly.\n`;
-  write(path.join(root, 'copilot', '.github', 'agents', `aisp-${weight}.agent.md`), agent);
+  const desc = JSON.stringify(`ksh ${weight}-tier agent - runs ${weight} steps on the ${weight} model.`);
+  const agent = `---\nname: ksh-${weight}\ndescription: ${desc}\nmodel: ${JSON.stringify(tierModels[weight])}\n---\n\nRun the requested ksh step on the ${weight} tier. Follow the invoking skill's process and gates exactly.\n`;
+  write(path.join(root, 'copilot', '.github', 'agents', `ksh-${weight}.agent.md`), agent);
 }
 
 // Copilot orchestrator agent with gated handoffs. Each handoff is a button the
@@ -53,23 +53,23 @@ for (const weight of Object.keys(tierModels)) {
 // auto-submits), and each runs on the target tier's model via a tier agent.
 // Ordered flow steps; each step's tier comes from frontmatter.json (single
 // source of truth), so changing a skill's weight there updates its handoff too.
-const FLOW = ['aisp-spec', 'aisp-plan', 'aisp-code', 'aisp-test', 'aisp-review', 'aisp-doc'];
+const FLOW = ['ksh-spec', 'ksh-plan', 'ksh-code', 'ksh-test', 'ksh-review', 'ksh-doc'];
 // No per-handoff model: each handoff targets its tier agent, whose own `model`
 // (a fallback list) decides the model. This avoids assuming the handoff model
 // field accepts an array, and the tier agent already carries the fallback chain.
 const handoffs = FLOW.map((step) => {
   const weight = fm[step].weight;
-  const label = step.replace('aisp-', '');
+  const label = step.replace('ksh-', '');
   return [
     `  - label: ${JSON.stringify(label[0].toUpperCase() + label.slice(1))}`,
-    `    agent: aisp-${weight}`,
+    `    agent: ksh-${weight}`,
     `    prompt: ${JSON.stringify(`Run the ${step} step now. Follow its process and gates exactly.`)}`,
     `    send: false`,
   ].join('\n');
 }).join('\n');
-const orchBody = read(path.join(root, 'shared', 'aisp.body.md')).trimEnd() + '\n';
-const orchestrator = `---\nname: aisp\ndescription: ${JSON.stringify('aisp SDLC orchestrator - gated spec to doc flow; each handoff advances one step on its tier model.')}\nmodel: ${JSON.stringify(tierModels.normal)}\nhandoffs:\n${handoffs}\n---\n\n${orchBody}`;
-write(path.join(root, 'copilot', '.github', 'agents', `aisp.agent.md`), orchestrator);
+const orchBody = read(path.join(root, 'shared', 'ksh.body.md')).trimEnd() + '\n';
+const orchestrator = `---\nname: ksh\ndescription: ${JSON.stringify('ksh SDLC orchestrator - gated spec to doc flow; each handoff advances one step on its tier model.')}\nmodel: ${JSON.stringify(tierModels.normal)}\nhandoffs:\n${handoffs}\n---\n\n${orchBody}`;
+write(path.join(root, 'copilot', '.github', 'agents', `ksh.agent.md`), orchestrator);
 
 const tierCount = Object.keys(tierModels).length;
 console.log(`BUILD OK: generated ${Object.keys(fm).length} skills x 3 outputs + ${tierCount} tier agents + 1 orchestrator agent (pin=${pinModel})`);

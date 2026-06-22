@@ -1,10 +1,10 @@
 {
-  "aisp": { "name": "aisp", "weight": "normal", "description": "Orchestrate the full SDLC flow (spec, plan, code, test, review, doc) with human gates. Use when a developer wants guided end-to-end delivery of a task or feature." },
-  "aisp-spec": { "name": "aisp-spec", "weight": "heavy", "description": "Capture WHAT to build as a short written spec before coding. Use when starting a task whose requirements are not yet written down." },
-  "aisp-plan": { "name": "aisp-plan", "weight": "normal", "description": "Turn an approved spec into a step-by-step build plan. Use when a spec exists and the work needs sequencing before coding." },
-  "aisp-code": { "name": "aisp-code", "weight": "normal", "description": "Implement code per an approved plan, surgically and following existing patterns. Use when a plan is approved and code must be written." },
-  "aisp-test": { "name": "aisp-test", "weight": "normal", "description": "Run unit tests with a bounded auto-fix loop and write evidence. Use when verifying behavior after a code change." },
-  "aisp-review": { "name": "aisp-review", "weight": "heavy", "description": "Review the diff for bugs and quality with severity-tagged findings. Use when gating a change before merge." },
-  "aisp-doc": { "name": "aisp-doc", "weight": "light", "description": "Record decisions, tradeoffs and implementation notes after work is done. Use when capturing the why at the end of a task." },
-  "aisp-fix": { "name": "aisp-fix", "weight": "heavy", "description": "Reproduce, locate and fix a reported bug on existing code, with test evidence. Use when a specific bug is reported." }
+  "ksh": { "name": "ksh", "weight": "normal", "description": "Orchestrate the full SDLC flow (spec, plan, code, test, review, doc) with human gates. Use when a developer wants guided end-to-end delivery of a task or feature." },
+  "ksh-spec": { "name": "ksh-spec", "weight": "heavy", "description": "Capture WHAT to build as a short written spec before coding. Use when starting a task whose requirements are not yet written down." },
+  "ksh-plan": { "name": "ksh-plan", "weight": "normal", "description": "Turn an approved spec into a step-by-step build plan. Use when a spec exists and the work needs sequencing before coding." },
+  "ksh-code": { "name": "ksh-code", "weight": "normal", "description": "Implement code per an approved plan, surgically and following existing patterns. Use when a plan is approved and code must be written." },
+  "ksh-test": { "name": "ksh-test", "weight": "normal", "description": "Run unit tests with a bounded auto-fix loop and write evidence. Use when verifying behavior after a code change." },
+  "ksh-review": { "name": "ksh-review", "weight": "heavy", "description": "Review the diff for bugs and quality with severity-tagged findings. Use when gating a change before merge." },
+  "ksh-doc": { "name": "ksh-doc", "weight": "light", "description": "Record decisions, tradeoffs and implementation notes after work is done. Use when capturing the why at the end of a task." },
+  "ksh-fix": { "name": "ksh-fix", "weight": "heavy", "description": "Reproduce, locate and fix a reported bug on existing code, with test evidence. Use when a specific bug is reported." }
 }
