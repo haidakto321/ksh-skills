@@ -53,7 +53,7 @@ for (const weight of Object.keys(tierModels)) {
 // auto-submits), and each runs on the target tier's model via a tier agent.
 // Ordered flow steps; each step's tier comes from frontmatter.json (single
 // source of truth), so changing a skill's weight there updates its handoff too.
-const FLOW = ['ksh-spec', 'ksh-plan', 'ksh-code', 'ksh-test', 'ksh-review', 'ksh-doc'];
+const FLOW = ['ksh-spec', 'ksh-plan', 'ksh-code', 'ksh-test', 'ksh-review', 'ksh-security', 'ksh-doc'];
 // No per-handoff model: each handoff targets its tier agent, whose own `model`
 // (a fallback list) decides the model. This avoids assuming the handoff model
 // field accepts an array, and the tier agent already carries the fallback chain.

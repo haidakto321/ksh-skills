@@ -15,6 +15,10 @@ Use when gating a change before merge with structured findings.
    as additional review criteria and note which checklist was used.
 2. Review the diff for correctness bugs, security issues, and quality problems.
    Each finding: location + severity (HIGH / MED / LOW) + concrete fix.
+   If the spec has an "Edge cases" section, verify each recorded decision is
+   either visible in the diff or explicitly deferred - a silent miss is a
+   finding. For changes touching auth, payments, user input, secrets, or
+   network-exposed code, recommend /ksh-security in the summary.
 3. Mode:
    - full review (default / from /ksh full): ask "Export review report to
      file?"; if yes write reports/review-<slug>-<date>.md.

@@ -10,10 +10,17 @@ Use this skill when starting a task whose requirements are not yet written down.
 
 1. Ask only the questions needed to pin down WHAT: purpose, inputs, outputs,
    success criteria, out-of-scope. One question at a time.
-2. Draft the spec: Goal, Requirements, Success criteria, Non-goals.
-3. Ask "Export spec to file?" If yes, write docs/specs/<slug>-<date>.md
+2. Draft the spec: Goal, Requirements, Success criteria, Edge cases, Non-goals.
+3. Edge-case sweep: walk the dimension list - boundary values, empty/null,
+   malformed input, concurrency, idempotency/duplicates, ordering, scale,
+   mid-way failure, permissions, time (timezone/expiry/clock), state
+   transitions, backward compat. Drop irrelevant dimensions silently. For the
+   2-3 riskiest, ask the user one question each and record the decisions in
+   the spec under "Edge cases". Do not skip the sweep because the task
+   "is simple".
+4. Ask "Export spec to file?" If yes, write docs/specs/<slug>-<date>.md
    (<slug> = short kebab task name, <date> = YYYY-MM-DD). Never write silently.
-4. GATE (mandatory): print the spec summary, wait for explicit approval of WHAT
+5. GATE (mandatory): print the spec summary, wait for explicit approval of WHAT
    before any planning or code.
 
 ## Anti-rationalization
@@ -23,6 +30,7 @@ Use this skill when starting a task whose requirements are not yet written down.
 | "I'll figure out requirements while coding." | Unwritten WHAT causes rework. Pin it first. |
 | "The task is obvious, skip the spec." | Obvious to you today may be ambiguous to the reviewer or future maintainer. Write it. |
 | "The user will tell me mid-sprint if I got it wrong." | Late discovery costs more than early spec. Confirm WHAT now. |
+| "Simple task, no edge cases." | Production bugs live in concurrency, retries, and mid-way failure. Run the sweep anyway. |
 
 ## Red Flags
 

@@ -1,7 +1,7 @@
 ---
 name: ksh
 description: "ksh SDLC orchestrator - gated spec to doc flow; each handoff advances one step on its tier model."
-model: ["Claude Sonnet 4.6","GPT-5.5","Gemini 3.1 Pro (Preview)"]
+model: ["Claude Sonnet 5","Claude Sonnet 4.6","GPT-5.5","Gemini 3.1 Pro (Preview)"]
 handoffs:
   - label: "Spec"
     agent: ksh-heavy
@@ -22,6 +22,10 @@ handoffs:
   - label: "Review"
     agent: ksh-heavy
     prompt: "Run the ksh-review step now. Follow its process and gates exactly."
+    send: false
+  - label: "Security"
+    agent: ksh-heavy
+    prompt: "Run the ksh-security step now. Follow its process and gates exactly."
     send: false
   - label: "Doc"
     agent: ksh-light
@@ -45,7 +49,7 @@ Use this skill when you want guided end-to-end delivery of a task or feature. It
 - `/ksh quick`: force the short flow (no size question).
 - `/ksh full`: force all steps.
 
-Full flow:  spec -> [GATE] -> plan -> [GATE] -> code -> test -> [opt GATE] -> review -> [GATE] -> doc
+Full flow:  spec -> [GATE] -> plan -> [GATE] -> code -> test -> [opt GATE] -> review -> [GATE] -> security(if triggers) -> doc
 Short flow: spec(light) -> code -> test -> light review -> [GATE] -> doc
 
 ### Human gate (apply at every GATE)
@@ -59,12 +63,31 @@ the user said bypass.
 If /ksh-test exhausts its 2 fix attempts, STOP and route to /ksh-fix; do not
 continue to review with failing tests.
 
+### Security step (conditional)
+After the review gate passes, run /ksh-security when the change touches any
+of: auth/session logic, payments, file upload, raw user input parsing,
+secrets or crypto, or a network-exposed surface. Otherwise skip it and say
+so. The short flow never auto-runs it; suggest it if a trigger clearly
+applies.
+
+### Inline-first escalation policy
+Default is to run every step inline in the main context. Spawn a subagent
+ONLY when a trigger fires:
+- review / security: the diff touches > 5 files or > 300 changed lines
+- fix: 2 inline fix attempts failed (spawn a fresh-context fixer)
+- exploration: answering a question needs scanning > 5 files (read-only)
+Below every threshold: stay inline and skip model routing. Each spawn prints
+`Agent <name> (<model>): <task>, est ~Nk tokens` (token figure is an
+estimate, never a measured count).
+
 ### Model routing by task weight
-Each skill has a weight: light (spec, doc), normal (plan, code, test), heavy
-(review, fix).
-- In Claude Code: dispatch heavy steps to a subagent with a model by weight -
-  light -> haiku, normal -> sonnet, heavy -> opus. Print an announce line
-  `Agent <name> (<model>): <task>` per spawn. If running inline, skip routing.
+Each skill has a weight in shared/frontmatter.json: light (doc), normal
+(plan, code, test), heavy (spec, review, security, fix).
+- In Claude Code: when the escalation policy says spawn, pick the subagent
+  model by weight - light -> haiku, normal -> sonnet, heavy -> opus (aliases,
+  so they always resolve to the latest model of that tier). If running
+  inline, skip routing. The human can override the model for any step by
+  saying so at a gate.
 - In GitHub Copilot: each atomic skill prompt already pins its tier model
   (`model:` in its .prompt.md). For the full flow, hand off heavy steps to the
   `ksh-heavy` custom agent and light steps to `ksh-light` (each agent pins its

@@ -5,7 +5,7 @@
   "_pin_help": "pin=true: each ksh-*.prompt.md hard-sets its tier model list (auto routing). pin=false: prompts omit model, so whatever model you pick in Copilot Chat runs. Custom agents always carry their tier model list for handoffs either way.",
   "weights": {
     "light": ["Claude Haiku 4.5", "Gemini 3.5 Flash", "GPT-5.4 mini"],
-    "normal": ["Claude Sonnet 4.6", "GPT-5.5", "Gemini 3.1 Pro (Preview)"],
-    "heavy": ["Claude Opus 4.6", "Claude Sonnet 4.6", "GPT-5.5", "Gemini 3.1 Pro (Preview)"]
+    "normal": ["Claude Sonnet 5", "Claude Sonnet 4.6", "GPT-5.5", "Gemini 3.1 Pro (Preview)"],
+    "heavy": ["Claude Opus 4.8", "Claude Sonnet 5", "Claude Sonnet 4.6", "GPT-5.5", "Gemini 3.1 Pro (Preview)"]
   }
 }

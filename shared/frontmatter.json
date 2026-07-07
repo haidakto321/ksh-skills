@@ -5,6 +5,7 @@
   "ksh-code": { "name": "ksh-code", "weight": "normal", "description": "Implement code per an approved plan, surgically and following existing patterns. Use when a plan is approved and code must be written." },
   "ksh-test": { "name": "ksh-test", "weight": "normal", "description": "Run unit tests with a bounded auto-fix loop and write evidence. Use when verifying behavior after a code change." },
   "ksh-review": { "name": "ksh-review", "weight": "heavy", "description": "Review the diff for bugs and quality with severity-tagged findings. Use when gating a change before merge." },
+  "ksh-security": { "name": "ksh-security", "weight": "heavy", "description": "Audit a change for security threats using STRIDE and OWASP Top 10 with severity-tagged findings. Use when a change touches auth, payments, user input, secrets, or network-exposed code." },
   "ksh-doc": { "name": "ksh-doc", "weight": "light", "description": "Record decisions, tradeoffs and implementation notes after work is done. Use when capturing the why at the end of a task." },
   "ksh-fix": { "name": "ksh-fix", "weight": "heavy", "description": "Reproduce, locate and fix a reported bug on existing code, with test evidence. Use when a specific bug is reported." }
 }
