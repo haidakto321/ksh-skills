@@ -28,6 +28,9 @@
   em-dash scan of frontmatter.json and checklists, balanced tool-marker blocks,
   `{{claude.*}}` placeholder validation, soft per-target word budget (600)
   with warnings.
+- One-command Copilot install: `npx github:haidakto321/ksh-skills [target]
+  [--force]` (scripts/install-copilot.js + package.json bin). Rerunnable as
+  an updater; keeps a project's own copilot-instructions.md unless --force.
 - LICENSE (MIT), CHANGELOG.md, TESTING.md, plugin.json metadata
   (repository/license/keywords).
 

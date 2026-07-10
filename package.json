@@ -2,6 +2,9 @@
   "name": "ksh-skills",
   "version": "0.2.0",
   "private": true,
+  "bin": {
+    "ksh-skills": "scripts/install-copilot.js"
+  },
   "scripts": {
     "prebuild": "node scripts/lint.js",
     "build": "node scripts/build.js",

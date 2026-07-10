@@ -55,15 +55,30 @@ Then reload: `/reload-plugins` (or restart Claude Code).
 you invoke them as `/ksh-skills:ksh`, `/ksh-skills:ksh-spec`, etc. The bare
 `/ksh` form shown in the examples is how it reads in GitHub Copilot (Install B).
 
-## Install B - GitHub Copilot (copy into a project, no install)
-1. Copy `copilot/.github/prompts/ksh-*.prompt.md` into your project's
-   `.github/prompts/` folder.
-2. (Optional) copy `copilot/.github/copilot-instructions.md` into your
-   project's `.github/`.
-3. (Optional, web projects) copy `copilot/.github/instructions/` too - the
-   web security / a11y / perf checklists auto-apply during `/ksh-review` by
-   file glob.
-4. In that project, type `/ksh` in Copilot Chat.
+## Install B - GitHub Copilot (one command)
+
+From the target project's root:
+
+```
+npx github:haidakto321/ksh-skills
+```
+
+Copies `copilot/.github/**` (prompts, tier agents, web checklists,
+copilot-instructions.md) into that project's `.github/`. Then type `/ksh`
+in Copilot Chat.
+
+- **Update:** rerun the same command anytime - `ksh-*` and `web-*` files are
+  refreshed in place.
+- A `copilot-instructions.md` the project already had is kept (merge by hand
+  or pass `--force` to replace it).
+- Install somewhere else: `npx github:haidakto321/ksh-skills ../myapp`.
+- Needs the repo to be public (or your git auth to reach it). From a local
+  clone the equivalent is `node scripts/install-copilot.js <target>`.
+
+**Manual fallback:** copy `copilot/.github/prompts/` into the project's
+`.github/prompts/`; optionally also `instructions/` (web security / a11y /
+perf checklists auto-apply during `/ksh-review`), `agents/`, and
+`copilot-instructions.md`.
 
 ## Model routing (cheaper model for simple steps)
 
