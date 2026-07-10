@@ -1,5 +1,5 @@
 ---
-description: "Record decisions, tradeoffs and implementation notes after work is done. Use when capturing the why at the end of a task."
+description: "Use when capturing the why at the end of a task - records decisions, tradeoffs and implementation notes."
 ---
 
 Invoke the ksh-doc skill and follow it exactly.

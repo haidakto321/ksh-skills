@@ -1,15 +1,15 @@
 ---
 name: ksh
-description: "Orchestrate the full SDLC flow (spec, plan, code, test, review, doc) with human gates. Use when a developer wants guided end-to-end delivery of a task or feature."
+description: "Use when a developer wants guided end-to-end delivery of a task or feature - orchestrates the SDLC flow with human approval gates. Start here if unsure which step to run."
 ---
 
 ## Overview
 
-The ksh orchestrator guides you through the full SDLC flow in a structured, human-gated pipeline. It judges task size and proposes a short flow for small changes, or runs the full flow for complex work. Human approval is required at the important gates - after spec, after plan, and after review - to keep stakeholders in the loop and prevent rework.
+Guides the full SDLC as a human-gated pipeline: judge task size, then run the short flow for small changes or the full flow for complex work. Human approval is mandatory after spec, after plan, and after review.
 
 ## When to Use
 
-Use this skill when you want guided end-to-end delivery of a task or feature. It combines spec capture, planning, implementation, testing, review, and documentation into one orchestrated flow with human gates and optional evidence reports. Start here if you are not sure which step to run next.
+Use when you want guided end-to-end delivery of a task or feature. Start here if you are not sure which step to run next.
 
 ## Process
 
@@ -41,8 +41,8 @@ so. The short flow never auto-runs it; suggest it if a trigger clearly
 applies.
 
 ### Inline-first escalation policy
-Default is to run every step inline in the main context. Spawn a subagent
-ONLY when a trigger fires:
+Run every step inline in the main context by default. Spawn a subagent ONLY
+when a trigger fires:
 - review / security: the diff touches > 5 files or > 300 changed lines
 - fix: 2 inline fix attempts failed (spawn a fresh-context fixer)
 - exploration: answering a question needs scanning > 5 files (read-only)
@@ -53,16 +53,11 @@ estimate, never a measured count).
 ### Model routing by task weight
 Each skill has a weight in shared/frontmatter.json: light (doc), normal
 (plan, code, test), heavy (spec, review, security, fix).
-- In Claude Code: when the escalation policy says spawn, pick the subagent
-  model by weight - light -> haiku, normal -> sonnet, heavy -> opus (aliases,
-  so they always resolve to the latest model of that tier). If running
-  inline, skip routing. The human can override the model for any step by
-  saying so at a gate.
-- In GitHub Copilot: each atomic skill prompt already pins its tier model
-  (`model:` in its .prompt.md). For the full flow, hand off heavy steps to the
-  `ksh-heavy` custom agent and light steps to `ksh-light` (each agent pins its
-  model in copilot/.github/agents/). Tier models are configured in
-  shared/copilot-models.json.
+When the escalation policy says spawn, pick the subagent model by weight -
+light -> haiku, normal -> sonnet, heavy ->
+opus (configured in shared/models.json; aliases track each
+tier's latest model). Inline runs skip routing. The human can override the
+model for any step at a gate.
 
 ## Anti-rationalization
 

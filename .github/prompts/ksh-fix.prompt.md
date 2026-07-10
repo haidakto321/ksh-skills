@@ -1,7 +1,6 @@
 ---
 agent: 'agent'
-model: ["Claude Opus 4.8","Claude Sonnet 4.6","GPT-4.1"]
-description: "Reproduce, locate and fix a reported bug on existing code, with test evidence. Use when a specific bug is reported."
+description: "Use when a specific bug is reported on existing code - reproduces, root-causes and fixes it with test evidence."
 ---
 
 ## Overview

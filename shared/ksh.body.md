@@ -1,10 +1,10 @@
 ## Overview
 
-The ksh orchestrator guides you through the full SDLC flow in a structured, human-gated pipeline. It judges task size and proposes a short flow for small changes, or runs the full flow for complex work. Human approval is required at the important gates - after spec, after plan, and after review - to keep stakeholders in the loop and prevent rework.
+Guides the full SDLC as a human-gated pipeline: judge task size, then run the short flow for small changes or the full flow for complex work. Human approval is mandatory after spec, after plan, and after review.
 
 ## When to Use
 
-Use this skill when you want guided end-to-end delivery of a task or feature. It combines spec capture, planning, implementation, testing, review, and documentation into one orchestrated flow with human gates and optional evidence reports. Start here if you are not sure which step to run next.
+Use when you want guided end-to-end delivery of a task or feature. Start here if you are not sure which step to run next.
 
 ## Process
 
@@ -35,29 +35,34 @@ secrets or crypto, or a network-exposed surface. Otherwise skip it and say
 so. The short flow never auto-runs it; suggest it if a trigger clearly
 applies.
 
+<!-- claude:start -->
 ### Inline-first escalation policy
-Default is to run every step inline in the main context. Spawn a subagent
-ONLY when a trigger fires:
+Run every step inline in the main context by default. Spawn a subagent ONLY
+when a trigger fires:
 - review / security: the diff touches > 5 files or > 300 changed lines
 - fix: 2 inline fix attempts failed (spawn a fresh-context fixer)
 - exploration: answering a question needs scanning > 5 files (read-only)
 Below every threshold: stay inline and skip model routing. Each spawn prints
 `Agent <name> (<model>): <task>, est ~Nk tokens` (token figure is an
 estimate, never a measured count).
+<!-- claude:end -->
 
 ### Model routing by task weight
 Each skill has a weight in shared/frontmatter.json: light (doc), normal
 (plan, code, test), heavy (spec, review, security, fix).
-- In Claude Code: when the escalation policy says spawn, pick the subagent
-  model by weight - light -> haiku, normal -> sonnet, heavy -> opus (aliases,
-  so they always resolve to the latest model of that tier). If running
-  inline, skip routing. The human can override the model for any step by
-  saying so at a gate.
-- In GitHub Copilot: each atomic skill prompt already pins its tier model
-  (`model:` in its .prompt.md). For the full flow, hand off heavy steps to the
-  `ksh-heavy` custom agent and light steps to `ksh-light` (each agent pins its
-  model in copilot/.github/agents/). Tier models are configured in
-  shared/copilot-models.json.
+<!-- claude:start -->
+When the escalation policy says spawn, pick the subagent model by weight -
+light -> {{claude.light}}, normal -> {{claude.normal}}, heavy ->
+{{claude.heavy}} (configured in shared/models.json; aliases track each
+tier's latest model). Inline runs skip routing. The human can override the
+model for any step at a gate.
+<!-- claude:end -->
+<!-- copilot:start -->
+Each atomic skill prompt pins its tier model when built with pin=true. For
+the full flow, hand heavy steps to the `ksh-heavy` custom agent and light
+steps to `ksh-light`; each tier agent in .github/agents/ carries its model
+fallback list.
+<!-- copilot:end -->
 
 ## Anti-rationalization
 

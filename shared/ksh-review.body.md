@@ -13,6 +13,16 @@ Use when gating a change before merge with structured findings.
    `applyTo` glob), then `docs/review-checklist*.md` or a `REVIEW_CHECKLIST.md`
    at the repo root. If one matches the languages in the diff, apply its items
    as additional review criteria and note which checklist was used.
+   If the diff touches frontend files (components, templates, styles), also
+   apply the web checklists (security, a11y, perf):
+<!-- claude:start -->
+   read `checklists/*.md` in this skill's base directory and apply the items
+   matching the diff.
+<!-- claude:end -->
+<!-- copilot:start -->
+   they live in `.github/instructions/web-*.instructions.md` and auto-apply
+   by glob; treat their items as review criteria.
+<!-- copilot:end -->
 2. Review the diff for correctness bugs, security issues, and quality problems.
    Each finding: location + severity (HIGH / MED / LOW) + concrete fix.
    If the spec has an "Edge cases" section, verify each recorded decision is

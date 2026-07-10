@@ -1,6 +1,6 @@
 ---
 agent: 'agent'
-description: "Run unit tests with a bounded auto-fix loop and write evidence. Use when verifying behavior after a code change."
+description: "Use when verifying behavior after a code change - runs graded checks with a bounded auto-fix loop and test evidence."
 ---
 
 ## Overview
@@ -19,12 +19,22 @@ Use when verifying behavior after code changes with structured test evidence.
    - standard (default): quick + build + unit tests.
    - deep: standard + coverage report + integration/e2e suites if the project
      has them. Use for /ksh full, risky changes, or when the human asks.
-2. Detect the stack and pick the test command:
-   - package.json -> npm test (or the project's configured script)
-   - pom.xml      -> mvn -q test
-   - build.gradle / build.gradle.kts -> ./gradlew test
-   - pubspec.yaml -> flutter test
-   If none match, ask the user for the test command.
+2. Detect the stack and pick the commands:
+   - JS/TS (package.json): the lockfile picks the runner -
+     pnpm-lock.yaml -> pnpm, yarn.lock -> yarn, bun.lock/bun.lockb -> bun,
+     else npm. Test: `<runner> test` (or the project's configured script).
+     Typecheck: `tsc --noEmit` when tsconfig.json exists. Lint: the project's
+     eslint/biome script when configured.
+   - pom.xml -> `mvn -q test`
+   - build.gradle / build.gradle.kts -> `./gradlew test`
+   - pubspec.yaml -> `flutter test`
+   - pyproject.toml / pytest.ini -> `pytest`
+   - go.mod -> `go test ./...`
+   - Cargo.toml -> `cargo test`
+   - *.csproj / *.sln -> `dotnet test`
+   If none match, ask the user for the commands.
+   For deep level, also detect e2e: playwright.config.* -> `npx playwright
+   test`; cypress.config.* -> `npx cypress run`.
 3. Run the checks for the chosen level.
 4. Auto-fix loop (max 2 attempts):
    - all green: go to step 5.
@@ -32,8 +42,10 @@ Use when verifying behavior after code changes with structured test evidence.
    - after 2 failed attempts: STOP, summarize the failure, suggest /ksh-fix.
      Do not continue with failing tests.
 5. Ask "Export UT report to file?" If yes, write
-   reports/ut-report-<slug>-<date>.md with: verification level, raw test
-   output, pass/fail counts, coverage if available. Never write silently.
+   reports/ut-report-<slug>-<date>.md with: verification level, pass/fail
+   counts, each failing test's output verbatim, the runner's summary tail
+   (NOT the full raw log - large suites bloat the report), coverage if
+   available. Never write silently.
 6. Optional GATE: offer to stop for human review of results. Skip if trivial
    or bypass requested.
 

@@ -1,7 +1,6 @@
 ---
 agent: 'agent'
-model: ["Claude Opus 4.8","Claude Sonnet 4.6","GPT-4.1"]
-description: "Review the diff for bugs and quality with severity-tagged findings. Use when gating a change before merge."
+description: "Use when gating a change before merge - reviews the diff for bugs and quality with severity-tagged findings."
 ---
 
 ## Overview
@@ -14,14 +13,27 @@ Use when gating a change before merge with structured findings.
 
 ## Process
 
-1. Review the diff for correctness bugs, security issues, and quality problems.
+1. Look for a project review checklist before reviewing. Check, in order:
+   `.github/instructions/*.instructions.md` (Copilot auto-applies these by
+   `applyTo` glob), then `docs/review-checklist*.md` or a `REVIEW_CHECKLIST.md`
+   at the repo root. If one matches the languages in the diff, apply its items
+   as additional review criteria and note which checklist was used.
+   If the diff touches frontend files (components, templates, styles), also
+   apply the web checklists (security, a11y, perf):
+   they live in `.github/instructions/web-*.instructions.md` and auto-apply
+   by glob; treat their items as review criteria.
+2. Review the diff for correctness bugs, security issues, and quality problems.
    Each finding: location + severity (HIGH / MED / LOW) + concrete fix.
-2. Mode:
+   If the spec has an "Edge cases" section, verify each recorded decision is
+   either visible in the diff or explicitly deferred - a silent miss is a
+   finding. For changes touching auth, payments, user input, secrets, or
+   network-exposed code, recommend /ksh-security in the summary.
+3. Mode:
    - full review (default / from /ksh full): ask "Export review report to
      file?"; if yes write reports/review-<slug>-<date>.md.
    - light review (from short / quick flow): fast pass, findings inline, no
      report file. Still produce findings.
-3. GATE (mandatory): present findings, let the human decide fix-vs-merge.
+4. GATE (mandatory): present findings, let the human decide fix-vs-merge.
    Never auto-merge.
 
 ## Anti-rationalization

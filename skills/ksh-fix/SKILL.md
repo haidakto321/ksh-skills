@@ -1,6 +1,6 @@
 ---
 name: ksh-fix
-description: "Reproduce, locate and fix a reported bug on existing code, with test evidence. Use when a specific bug is reported."
+description: "Use when a specific bug is reported on existing code - reproduces, root-causes and fixes it with test evidence."
 ---
 
 ## Overview

@@ -1,10 +1,10 @@
 ## Overview
 
-The spec step captures WHAT before any planning or coding. A clear written spec is the foundation that prevents rework and aligns the team on success. This skill asks only the essential questions needed to define inputs, outputs, success criteria, and scope boundaries - then drafts a concise spec and gates all downstream work on its approval.
+Captures WHAT before any planning or coding: ask only the essential questions, draft a concise spec (goal, requirements, success criteria, edge cases, non-goals), and gate all downstream work on its approval.
 
 ## When to Use
 
-Use this skill when starting a task whose requirements are not yet written down. Whether the task is from a ticket, a verbal request, or a half-formed idea, run `/ksh-spec` to pin down WHAT you are building before committing to a plan or code. A single sentence of WHAT is still cheaper than rework once implementation has started.
+Use when starting a task whose requirements are not yet written down - a ticket, a verbal request, or a half-formed idea. One written sentence of WHAT is cheaper than rework once implementation has started.
 
 ## Process
 
@@ -34,10 +34,10 @@ Use this skill when starting a task whose requirements are not yet written down.
 
 ## Red Flags
 
-- The user cannot articulate success criteria - this signals the task is not yet ready. Stop and clarify what "done" means before drafting the spec.
-- The spec has unresolved contradictions (e.g. "must be fast" but "cannot reduce features") - flag these as out-of-scope or constraints, do not paper over them.
-- You are tempted to add implementation details (e.g. "use REST API") into the spec - keep WHAT separate from HOW. The plan decides HOW.
+- The user cannot articulate success criteria - the task is not ready. Stop and clarify what "done" means before drafting.
+- The spec has unresolved contradictions (e.g. "must be fast" but "cannot reduce features") - flag them as constraints or out-of-scope, do not paper over them.
+- You are tempted to add implementation details (e.g. "use REST API") - keep WHAT separate from HOW. The plan decides HOW.
 
 ## Verification
 
-Before exit, confirm: an approved WHAT exists in written form (whether exported to a file or confirmed in chat), and the human has explicitly approved the spec with "approve", "continue", or equivalent consent. Do not proceed to planning without this gate being honored.
+Before exit, confirm: an approved WHAT exists in written form (exported or confirmed in chat), and the human explicitly approved it ("approve", "continue", or equivalent). Do not proceed to planning without this gate.

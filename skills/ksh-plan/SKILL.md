@@ -1,6 +1,6 @@
 ---
 name: ksh-plan
-description: "Turn an approved spec into a step-by-step build plan. Use when a spec exists and the work needs sequencing before coding."
+description: "Use when a spec exists and the work needs sequencing before coding - turns the approved spec into a step-by-step build plan."
 ---
 
 ## Overview

@@ -1,0 +1,19 @@
+{
+  "_comment": "Model routing for both tools. claude: alias per weight, substituted into the skill bodies at build time ({{claude.<weight>}} placeholders). copilot: EDIT model names to match exactly what your Copilot model picker shows.",
+  "claude": {
+    "_help": "Model used when the escalation policy spawns a subagent (inline runs always use the session model). Aliases haiku/sonnet/opus/fable track the latest model of their tier; a full model id also works. Short on tokens? Set heavy to sonnet.",
+    "light": "haiku",
+    "normal": "sonnet",
+    "heavy": "opus"
+  },
+  "copilot": {
+    "pin": false,
+    "_pin_help": "pin=true: each ksh-*.prompt.md hard-sets its tier model list (auto routing). pin=false: prompts omit model, so whatever model you pick in Copilot Chat runs. Custom agents always carry their tier model list for handoffs either way.",
+    "_fallback_help": "Each weight is a PRIORITIZED LIST: Copilot tries each model in order until one is available, so a model your plan lacks is skipped for the next. IMPORTANT: make the LAST entry in each list a model you are certain you have.",
+    "weights": {
+      "light": ["Claude Haiku 4.5", "Gemini 3.5 Flash", "GPT-5.4 mini"],
+      "normal": ["Claude Sonnet 5", "Claude Sonnet 4.6", "GPT-5.5", "Gemini 3.1 Pro (Preview)"],
+      "heavy": ["Claude Opus 4.8", "Claude Sonnet 5", "Claude Sonnet 4.6", "GPT-5.5", "Gemini 3.1 Pro (Preview)"]
+    }
+  }
+}

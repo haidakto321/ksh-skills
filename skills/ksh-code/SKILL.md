@@ -1,6 +1,6 @@
 ---
 name: ksh-code
-description: "Implement code per an approved plan, surgically and following existing patterns. Use when a plan is approved and code must be written."
+description: "Use when a plan is approved and code must be written - implements it surgically, following existing patterns."
 ---
 
 ## Overview

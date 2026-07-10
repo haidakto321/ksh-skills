@@ -19,9 +19,11 @@ Use when the change touches auth/session logic, payments, file upload, raw user 
    - Information disclosure: can data leak via logs, errors, or responses?
    - Denial of service: can crafted input or load break availability?
    - Elevation of privilege: can a user gain rights they should not have?
-3. OWASP pass: map findings to OWASP Top 10 IDs (e.g. A01 Broken Access
-   Control, A03 Injection). Explicitly check injection, broken access
-   control, security misconfiguration, and SSRF even if STRIDE found nothing.
+3. OWASP pass: map findings to OWASP Top 10 IDs (2021 edition, e.g. A01
+   Broken Access Control, A03 Injection). Explicitly check injection, broken
+   access control, security misconfiguration, and SSRF even if STRIDE found
+   nothing. Note the edition in the report so IDs stay unambiguous when a
+   newer Top 10 (e.g. 2025) is adopted.
 4. Each finding: location + STRIDE category + OWASP ID + severity
    (HIGH / MED / LOW) + concrete fix.
 5. Ask "Export security report to file?" If yes, write

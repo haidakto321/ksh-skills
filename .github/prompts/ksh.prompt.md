@@ -1,16 +1,15 @@
 ---
 agent: 'agent'
-model: ["Claude Sonnet 4.6","GPT-4.1"]
-description: "Orchestrate the full SDLC flow (spec, plan, code, test, review, doc) with human gates. Use when a developer wants guided end-to-end delivery of a task or feature."
+description: "Use when a developer wants guided end-to-end delivery of a task or feature - orchestrates the SDLC flow with human approval gates. Start here if unsure which step to run."
 ---
 
 ## Overview
 
-The ksh orchestrator guides you through the full SDLC flow in a structured, human-gated pipeline. It judges task size and proposes a short flow for small changes, or runs the full flow for complex work. Human approval is required at the important gates - after spec, after plan, and after review - to keep stakeholders in the loop and prevent rework.
+Guides the full SDLC as a human-gated pipeline: judge task size, then run the short flow for small changes or the full flow for complex work. Human approval is mandatory after spec, after plan, and after review.
 
 ## When to Use
 
-Use this skill when you want guided end-to-end delivery of a task or feature. It combines spec capture, planning, implementation, testing, review, and documentation into one orchestrated flow with human gates and optional evidence reports. Start here if you are not sure which step to run next.
+Use when you want guided end-to-end delivery of a task or feature. Start here if you are not sure which step to run next.
 
 ## Process
 
@@ -20,7 +19,7 @@ Use this skill when you want guided end-to-end delivery of a task or feature. It
 - `/ksh quick`: force the short flow (no size question).
 - `/ksh full`: force all steps.
 
-Full flow:  spec -> [GATE] -> plan -> [GATE] -> code -> test -> [opt GATE] -> review -> [GATE] -> doc
+Full flow:  spec -> [GATE] -> plan -> [GATE] -> code -> test -> [opt GATE] -> review -> [GATE] -> security(if triggers) -> doc
 Short flow: spec(light) -> code -> test -> light review -> [GATE] -> doc
 
 ### Human gate (apply at every GATE)
@@ -34,17 +33,21 @@ the user said bypass.
 If /ksh-test exhausts its 2 fix attempts, STOP and route to /ksh-fix; do not
 continue to review with failing tests.
 
+### Security step (conditional)
+After the review gate passes, run /ksh-security when the change touches any
+of: auth/session logic, payments, file upload, raw user input parsing,
+secrets or crypto, or a network-exposed surface. Otherwise skip it and say
+so. The short flow never auto-runs it; suggest it if a trigger clearly
+applies.
+
+
 ### Model routing by task weight
-Each skill has a weight: light (spec, doc), normal (plan, code, test), heavy
-(review, fix).
-- In Claude Code: dispatch heavy steps to a subagent with a model by weight -
-  light -> haiku, normal -> sonnet, heavy -> opus. Print an announce line
-  `Agent <name> (<model>): <task>` per spawn. If running inline, skip routing.
-- In GitHub Copilot: each atomic skill prompt already pins its tier model
-  (`model:` in its .prompt.md). For the full flow, hand off heavy steps to the
-  `ksh-heavy` custom agent and light steps to `ksh-light` (each agent pins its
-  model in copilot/.github/agents/). Tier models are configured in
-  shared/copilot-models.json.
+Each skill has a weight in shared/frontmatter.json: light (doc), normal
+(plan, code, test), heavy (spec, review, security, fix).
+Each atomic skill prompt pins its tier model when built with pin=true. For
+the full flow, hand heavy steps to the `ksh-heavy` custom agent and light
+steps to `ksh-light`; each tier agent in .github/agents/ carries its model
+fallback list.
 
 ## Anti-rationalization
 
