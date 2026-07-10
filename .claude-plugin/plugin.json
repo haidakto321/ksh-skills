@@ -1,8 +1,12 @@
 {
   "name": "ksh-skills",
-  "version": "0.1.0",
-  "description": "ksh SDLC skill set: spec, plan, code, test, review, doc, fix with human gates and evidence",
+  "version": "0.2.0",
+  "description": "ksh SDLC skill set: spec, plan, code, test, review, security, doc, fix with human gates and evidence",
   "author": {
     "name": "haiks"
-  }
+  },
+  "homepage": "https://github.com/haidakto321/ksh-skills",
+  "repository": "https://github.com/haidakto321/ksh-skills",
+  "license": "MIT",
+  "keywords": ["sdlc", "workflow", "skills", "copilot", "claude-code", "human-gates"]
 }
