@@ -32,7 +32,41 @@ shows what to type and what it does.
 > for you to reply "approve" / "continue" before going on. In `/ksh quick` the
 > review becomes a fast light pass but the merge gate stays.
 
-## Install A - Claude Code (plugin, once per machine)
+## Install
+
+Two tools, one install each:
+
+- **Claude Code** -> pick ONE of Option 1 or Option 2 below (they are
+  alternatives, not steps - do not install both).
+- **GitHub Copilot** -> see "Install - GitHub Copilot".
+
+### Claude Code, Option 1 - standalone (short names, recommended)
+
+Copies `skills/ksh-*` into `~/.claude/skills/`, where Claude Code picks them up
+without a plugin namespace - commands are the short `/ksh`, `/ksh-spec`, ...
+forms, exactly as written in the examples above.
+
+```
+npx github:haidakto321/ksh-skills --claude
+```
+
+Then restart Claude Code (or `/reload`).
+
+- **Update:** rerun the same command anytime - each `ksh-*` skill directory is
+  replaced in place.
+- **One project only:** `npx github:haidakto321/ksh-skills --claude <project>`
+  installs into `<project>/.claude/skills/` instead of your home directory.
+- From a local clone the equivalent is `node scripts/install-claude.js`.
+- Don't combine with Option 2: if the plugin is also installed, both
+  `/ksh-skills:ksh` and `/ksh` show up. Pick one (uninstall the plugin with
+  `/plugin uninstall ksh-skills@ksh-skills` to keep only the short names).
+- Tradeoff vs the plugin: no marketplace update flow - updating means rerunning
+  the npx command.
+
+### Claude Code, Option 2 - plugin (marketplace)
+
+Alternative to Option 1 - only if you prefer the plugin manager over short
+names. Skip this if you already ran Option 1.
 
 Claude Code installs plugins through a "marketplace" (this repo ships one in
 `.claude-plugin/marketplace.json`). Run these inside Claude Code:
@@ -52,10 +86,10 @@ Claude Code installs plugins through a "marketplace" (this repo ships one in
 Then reload: `/reload-plugins` (or restart Claude Code).
 
 **Note on names:** plugin skills are namespaced by the plugin, so in Claude Code
-you invoke them as `/ksh-skills:ksh`, `/ksh-skills:ksh-spec`, etc. The bare
-`/ksh` form shown in the examples is how it reads in GitHub Copilot (Install B).
+you invoke them as `/ksh-skills:ksh`, `/ksh-skills:ksh-spec`, etc. For the bare
+`/ksh` form shown in the examples use Option 1 (standalone) instead.
 
-## Install B - GitHub Copilot (one command)
+## Install - GitHub Copilot (one command)
 
 From the target project's root:
 

@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "bin": {
-    "ksh-skills": "scripts/install-copilot.js"
+    "ksh-skills": "scripts/install.js"
   },
   "scripts": {
     "prebuild": "node scripts/lint.js",

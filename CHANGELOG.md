@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- Claude Code standalone install (`npx github:haidakto321/ksh-skills --claude`,
+  local: `node scripts/install-claude.js`): copies `skills/ksh-*` into
+  `~/.claude/skills/` (or `<project>/.claude/skills/` with a target arg) so
+  commands work as the short `/ksh`, `/ksh-spec`, ... forms - plugin installs
+  are always namespaced (`/ksh-skills:ksh`) and cannot be shortened. The npx
+  entry point is now `scripts/install.js`, dispatching on `--claude` (default
+  remains the Copilot install, unchanged).
+
 ## 0.2.0 - 2026-07-10
 
 ### Fixed
