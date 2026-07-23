@@ -1,7 +1,7 @@
 {
   "name": "ksh-skills",
   "version": "0.2.0",
-  "description": "ksh SDLC skill set: spec, plan, code, test, review, security, doc, fix with human gates and evidence",
+  "description": "ksh SDLC skill set: spec, design, plan, code, test, review, security, doc, fix with human gates and evidence",
   "author": {
     "name": "haiks"
   },

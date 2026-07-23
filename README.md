@@ -1,13 +1,81 @@
 # ksh-skills
 
-Nine SDLC skills (prefix `ksh`) for a guided spec -> plan -> code -> test ->
-review -> security (when triggered) -> doc flow, plus a standalone bug-fix
+Ten SDLC skills (prefix `ksh`) for a guided spec -> design (when triggered) ->
+plan -> code -> test -> review -> security (when triggered) -> doc flow, plus a
+standalone bug-fix
 skill. Human gates at the important steps; evidence reports for tests, review,
 and security.
 
+## Flow
+
+Blue = step, purple dashed = conditional step (runs only when triggered), amber
+diamond = human approval gate (stop and wait for approval), teal = standalone
+bug-fix. Complex work takes the full flow; small changes take the short flow.
+
+```mermaid
+%%{init: {'theme':'base', 'flowchart': {'curve':'stepAfter'}, 'themeVariables': {'fontSize':'14px', 'fontFamily':'Segoe UI, Arial', 'lineColor':'#64748b', 'edgeLabelBackground':'#ffffff'}}}%%
+flowchart TD
+  START(["<b>/ksh</b><br/>judge task size"]):::entry
+  SIZE{"<b>trivial?</b>"}:::entry
+  START --> SIZE
+
+  subgraph FULL["<b>Full flow</b> - complex work"]
+    direction TD
+    SPEC["<b>spec</b><br/>capture WHAT"]:::step
+    G1{"<b>gate</b><br/>spec"}:::gate
+    DESIGN["<b>design</b><br/>2-3 approaches<br/>if non-obvious"]:::cond
+    G2{"<b>gate</b><br/>design"}:::gate
+    PLAN["<b>plan</b><br/>task breakdown"]:::step
+    G3{"<b>gate</b><br/>plan"}:::gate
+    CODE["<b>code</b><br/>surgical edits"]:::step
+    TEST["<b>test</b><br/>graded checks"]:::step
+    GO{"<b>opt gate</b><br/>code / test"}:::gateopt
+    REVIEW["<b>review</b><br/>severity findings"]:::step
+    G4{"<b>gate</b><br/>review"}:::gate
+    SEC["<b>security</b><br/>STRIDE / OWASP<br/>if risky surface"]:::cond
+    DOC["<b>doc</b><br/>capture WHY"]:::step
+
+    SPEC --> G1
+    G1 -->|"non-obvious"| DESIGN
+    G1 -->|"obvious: skip"| PLAN
+    DESIGN --> G2 --> PLAN
+    PLAN --> G3 --> CODE --> TEST --> GO --> REVIEW --> G4
+    G4 -->|"risky surface"| SEC
+    G4 -->|"skip"| DOC
+    SEC --> DOC
+  end
+
+  subgraph SHORT["<b>Short flow</b> - small change"]
+    direction TD
+    SSPEC["<b>spec</b> (light)"]:::step
+    SCODE["<b>code</b>"]:::step
+    STEST["<b>test</b>"]:::step
+    SREV["<b>light review</b>"]:::step
+    SG{"<b>gate</b>"}:::gate
+    SDOC["<b>doc</b>"]:::step
+    SSPEC --> SCODE --> STEST --> SREV --> SG --> SDOC
+  end
+
+  SIZE -->|"no"| SPEC
+  SIZE -->|"yes"| SSPEC
+
+  BUG(["bug report"]):::entry
+  FIX["<b>/ksh-fix</b><br/>reproduce -> root-cause"]:::fix
+  BUG --> FIX
+  TEST -.->|"2 fails"| FIX
+  FIX -.->|"re-run"| TEST
+
+  classDef entry stroke:#64748b,fill:#f1f5f9,stroke-width:2px,color:#0f172a
+  classDef step stroke:#3b82f6,fill:#eff6ff,stroke-width:2px,color:#1e3a8a
+  classDef cond stroke:#8b5cf6,fill:#f5f3ff,stroke-width:2px,color:#4c1d95,stroke-dasharray:5 4
+  classDef gate stroke:#f59e0b,fill:#fffbeb,stroke-width:2px,color:#78350f
+  classDef gateopt stroke:#f59e0b,fill:#fffbeb,stroke-width:2px,color:#78350f,stroke-dasharray:5 4
+  classDef fix stroke:#14b8a6,fill:#f0fdfa,stroke-width:2px,color:#134e4a
+```
+
 ## Skills
 - `/ksh` - orchestrator (judges task size, runs the flow with gates)
-- `/ksh-spec` `/ksh-plan` `/ksh-code` `/ksh-test` `/ksh-review` `/ksh-security` `/ksh-doc` `/ksh-fix`
+- `/ksh-spec` `/ksh-design` `/ksh-plan` `/ksh-code` `/ksh-test` `/ksh-review` `/ksh-security` `/ksh-doc` `/ksh-fix`
 
 ## Usage examples
 
@@ -16,10 +84,11 @@ shows what to type and what it does.
 
 | Command | Type this | What happens |
 |---------|-----------|--------------|
-| `/ksh` | `/ksh add a CSV export button to the report page` | Runs the whole flow. Judges task size, asks to skip steps if trivial, then walks spec -> plan -> code -> test -> review -> security (if the change touches risky surfaces) -> doc with approval gates. Start here if unsure. |
+| `/ksh` | `/ksh add a CSV export button to the report page` | Runs the whole flow. Judges task size, asks to skip steps if trivial, then walks spec -> design (if the approach is non-obvious) -> plan -> code -> test -> review -> security (if the change touches risky surfaces) -> doc with approval gates. Start here if unsure. |
 | `/ksh quick` | `/ksh quick fix the typo in the footer copyright year` | Forces the short flow (spec(light) -> code -> test -> light review -> doc). No task-size question. |
 | `/ksh full` | `/ksh full build the new billing webhook handler` | Forces all steps with every gate. Use for risky or complex work. |
 | `/ksh-spec` | `/ksh-spec a user can reset their password by email` | Asks a few questions, drafts a WHAT spec, offers to save it, waits for your approval. |
+| `/ksh-design` | `/ksh-design` (after a spec, when the approach is non-obvious) | Explores context, proposes 2-3 approaches with trade-offs and a recommendation, offers to save a design doc, waits for approval before planning. Skipped when one approach is obvious. |
 | `/ksh-plan` | `/ksh-plan` (after a spec exists) | Turns the approved spec into a step-by-step task list, offers to save it, waits for approval before any code. |
 | `/ksh-code` | `/ksh-code` (after a plan is approved) | Implements the plan task by task, surgical edits only, offers a diff review. |
 | `/ksh-test` | `/ksh-test` | Detects the stack (npm/pnpm/yarn/bun, maven, gradle, flutter, pytest, go, cargo, dotnet - plus typecheck/lint and Playwright/Cypress at deep level), picks a verification level, runs the checks, auto-fixes up to 2 times, then offers a test evidence report. |
@@ -138,7 +207,7 @@ Each skill has a `weight` (light / normal / heavy) in `shared/frontmatter.json`.
   2. Tier agents `copilot/.github/agents/ksh-{light,normal,heavy}.agent.md` each
      pin a model and are handoff targets.
   3. Orchestrator agent `copilot/.github/agents/ksh.agent.md` drives the full
-     flow with `handoffs`: a button per step (Spec -> Plan -> ... -> Doc) that
+     flow with `handoffs`: a button per step (Spec -> Design -> Plan -> ... -> Doc) that
      advances on that step's tier model. `send: false` means each button waits
      for your click - that click IS the human gate.
 

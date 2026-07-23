@@ -3,6 +3,13 @@
 ## Unreleased
 
 ### Added
+- `ksh-design` (new, conditional): a HOW-design step between spec and plan.
+  Fires only when the approach is non-obvious (more than one viable approach,
+  a new subsystem/integration, an architectural or cross-cutting choice, a
+  hard-to-reverse contract); otherwise it is skipped, like the security step.
+  Explores context, weighs 2-3 approaches with trade-offs, and records a design
+  doc under `docs/designs/`. Flow renumbered: plan/code/test/review/security/doc
+  shift +1.
 - Claude Code standalone install (`npx github:haidakto321/ksh-skills --claude`,
   local: `node scripts/install-claude.js`): copies `skills/ksh-*` into
   `~/.claude/skills/` (or `<project>/.claude/skills/` with a target arg) so

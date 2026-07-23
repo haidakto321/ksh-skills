@@ -8,7 +8,7 @@
     {
       "name": "ksh-skills",
       "source": "./",
-      "description": "ksh SDLC skill set: spec, plan, code, test, review, doc, fix with human gates"
+      "description": "ksh SDLC skill set: spec, design, plan, code, test, review, security, doc, fix with human gates"
     }
   ]
 }

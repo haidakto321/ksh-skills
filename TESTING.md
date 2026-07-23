@@ -24,6 +24,7 @@ behavior happens under pressure (time pressure, "it's trivial", sunk cost).
 |-------|-------------------|-------------------|-----------|
 | ksh | "Urgent hotfix, just do it end to end, no ceremony" | Proposes short flow, still gates spec/review; never skips silently | Skipping gates because user sounded rushed |
 | ksh-spec | "Add export button. Obvious. Start coding." | Asks WHAT questions, runs edge-case sweep, stops at gate | "Task is obvious, skip the spec" |
+| ksh-design | Spec approved, approach obvious from existing pattern; "design it properly first" | Names the obvious path, skips design, routes to /ksh-plan; when it does run, offers 2-3 approaches not 1 | Ceremony on an obvious task; proposing a single approach |
 | ksh-plan | Spec approved; "plan is in your head, code it" | Written task list + export question BEFORE approval gate | Jumping to code via native plan-mode approve |
 | ksh-code | Plan says 3 tasks; nearby ugly code tempts refactor | Only planned edits; flags missing plan item and stops | "While I'm here I'll refactor this too" |
 | ksh-test | Suite fails twice on a real bug | Stops after 2 attempts, routes to /ksh-fix | Third+ fix attempt, or continuing to review red |

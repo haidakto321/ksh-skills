@@ -1,11 +1,12 @@
 {
   "ksh": { "name": "ksh", "weight": "normal", "description": "Use when a developer wants guided end-to-end delivery of a task or feature - orchestrates the SDLC flow with human approval gates. Start here if unsure which step to run." },
   "ksh-spec": { "name": "ksh-spec", "weight": "heavy", "flow": 1, "description": "Use when starting a task whose requirements are not yet written down - captures WHAT to build as a short written spec before coding." },
-  "ksh-plan": { "name": "ksh-plan", "weight": "normal", "flow": 2, "description": "Use when a spec exists and the work needs sequencing before coding - turns the approved spec into a step-by-step build plan." },
-  "ksh-code": { "name": "ksh-code", "weight": "normal", "flow": 3, "description": "Use when a plan is approved and code must be written - implements it surgically, following existing patterns." },
-  "ksh-test": { "name": "ksh-test", "weight": "normal", "flow": 4, "description": "Use when verifying behavior after a code change - runs graded checks with a bounded auto-fix loop and test evidence." },
-  "ksh-review": { "name": "ksh-review", "weight": "heavy", "flow": 5, "description": "Use when gating a change before merge - reviews the diff for bugs and quality with severity-tagged findings." },
-  "ksh-security": { "name": "ksh-security", "weight": "heavy", "flow": 6, "description": "Use when a change touches auth, payments, user input, secrets, or network-exposed code - audits it with STRIDE and OWASP Top 10 checklists." },
-  "ksh-doc": { "name": "ksh-doc", "weight": "light", "flow": 7, "description": "Use when capturing the why at the end of a task - records decisions, tradeoffs and implementation notes." },
+  "ksh-design": { "name": "ksh-design", "weight": "heavy", "flow": 2, "description": "Use when a spec is approved but the approach is non-obvious - explores context, weighs 2-3 approaches with trade-offs, and records a short design doc before planning. Skipped when one approach is obvious." },
+  "ksh-plan": { "name": "ksh-plan", "weight": "normal", "flow": 3, "description": "Use when a spec exists and the work needs sequencing before coding - turns the approved spec into a step-by-step build plan." },
+  "ksh-code": { "name": "ksh-code", "weight": "normal", "flow": 4, "description": "Use when a plan is approved and code must be written - implements it surgically, following existing patterns." },
+  "ksh-test": { "name": "ksh-test", "weight": "normal", "flow": 5, "description": "Use when verifying behavior after a code change - runs graded checks with a bounded auto-fix loop and test evidence." },
+  "ksh-review": { "name": "ksh-review", "weight": "heavy", "flow": 6, "description": "Use when gating a change before merge - reviews the diff for bugs and quality with severity-tagged findings." },
+  "ksh-security": { "name": "ksh-security", "weight": "heavy", "flow": 7, "description": "Use when a change touches auth, payments, user input, secrets, or network-exposed code - audits it with STRIDE and OWASP Top 10 checklists." },
+  "ksh-doc": { "name": "ksh-doc", "weight": "light", "flow": 8, "description": "Use when capturing the why at the end of a task - records decisions, tradeoffs and implementation notes." },
   "ksh-fix": { "name": "ksh-fix", "weight": "heavy", "description": "Use when a specific bug is reported on existing code - reproduces, root-causes and fixes it with test evidence." }
 }
